@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Timer</title>
+    <link rel="stylesheet" href="index.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="fontawesome-free-5.15.1-web/fontawesome-free-5.15.1-web/css/all.css"
+    />
+  </head>
+  <body onload="setMode('timer')">
+    <section>
+      <div class="container-fluid py-5">
+        <div class="row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-6">
+            <div
+              class="switchs d-flex align-items-center justify-content-around"
+            >
+              <button id="btnAlarm" onclick="setMode('alarm')">Alarm</button>
+              <button id="btnTimer" onclick="setMode('timer')">Timer</button>
+            </div>
+          </div>
+          <div class="col-sm-3"></div>
+        </div>
+      </div>
+    </section>
+    <section id="timer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-4"></div>
+
+          <div class="col-sm-4 time d-flex justify-content-around">
+            <div>
+              <input type="text" id="inputHours" value="00" />
+              <div class="d-flex justify-content-between py-3">
+                <i class="fas fa-plus" onclick="increase('inputHours')"></i
+                ><i class="fas fa-minus" onclick="decrease('inputHours')"></i>
+              </div>
+            </div>
+            <div>
+              <input type="text" id="inputMinutes" value="00" />
+              <div class="d-flex justify-content-between py-3">
+                <i class="fas fa-plus" onclick="increase('inputMinutes')"></i
+                ><i class="fas fa-minus" onclick="decrease('inputMinutes')"></i>
+              </div>
+            </div>
+            <div>
+              <input type="text" id="inputSeconds" value="00" />
+              <div class="d-flex justify-content-between py-3">
+                <i class="fas fa-plus" onclick="increase('inputSeconds')"></i
+                ><i class="fas fa-minus" onclick="decrease('inputSeconds')"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4"></div>
+          <div class="col-sm-3"></div>
+          <div class="col-sm-6 buttons d-flex justify-content-around my-5">
+            <button id="timerRestart" onclick="restartTimer()"></button>
+            <button id="timer-start-stop" onclick="startTimer()"></button>
+          </div>
+          <div class="col-sm-3"></div>
+        </div>
+      </div>
+    </section>
+    <section id="alarm">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-4"></div>
+
+          <div class="col-sm-4 time d-flex justify-content-around">
+            <input type="number" placeholder="12:12:12" />
+          </div>
+          <div class="col-sm-4"></div>
+          <div class="col-sm-3"></div>
+          <div class="col-sm-6 buttons d-flex justify-content-around my-5">
+            <button id="alarmSnooze"></button>
+            <button id="alarmStartStop"></button>
+          </div>
+          <div class="col-sm-3"></div>
+        </div>
+      </div>
+    </section>
+    <script src="index.js"></script>
+  </body>
+</html>
