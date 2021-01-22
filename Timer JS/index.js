@@ -85,6 +85,8 @@ function restartTimer() {
   hour.value = "00";
   minute.value = "00";
   second.value = "00";
+
+  clearInterval(interval); // !important
 }
 
 var interval;
@@ -111,27 +113,19 @@ function countDown() {
   let minute = parseInt(getInputTimer("m").value);
   let second = parseInt(getInputTimer("s").value);
 
-  second -= 1;
-  if (second < 0 && minute > 0) {
+  if (second > 0) {
+    second -= 1;
+  } else if (minute > 0) {
     minute -= 1;
     second += 59;
-    if (hour > 0 && minute > 0) {
-      hour -= 1;
-      minute += 59;
-      console.log("hour");
-    }
-  } else if (second === -1) {
-    if (minute === 0 && hour === 0) {
-      second = 0;
-      clearInterval(interval);
-    }
+  } else if (hour > 0) {
+    hour -= 1;
+    minute += 59;
+  } else {
+    clearInterval(interval);
   }
 
   elementSecond.value = second;
   elementMinute.value = minute;
   elementHour.value = hour;
-
-  console.log(second + "s");
-  console.log(minute + "min");
-  console.log(hour + "h");
 }
