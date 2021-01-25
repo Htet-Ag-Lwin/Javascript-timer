@@ -119,7 +119,7 @@ function startTimer() {
   prevTimerMinute = minute;
   prevTimerSecond = second;
   if ((second > 0 || minute > 0 || hour > 0) && timerTone !== undefined) {
-    interval = setInterval(countDown, 1);
+    interval = setInterval(countDown, 1000);
     timerStart.style.display = "none";
     timerStop.style.display = "initial";
     btnTimerChooseTone.style.display = "none";
