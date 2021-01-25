@@ -64,7 +64,10 @@
           <div class="col-sm-3"></div>
           <div class="col-sm-6 buttons d-flex justify-content-around my-5">
             <button id="timerRestart" onclick="restartTimer()"></button>
-            <button id="timer-start-stop" onclick="startTimer()"></button>
+            <button id="timer-start" onclick="startTimer()">Start</button>
+            <button id="timer-stop" onclick="stopTimer()" style="display: none">
+              Stop
+            </button>
           </div>
           <div class="col-sm-3"></div>
         </div>
@@ -88,6 +91,44 @@
         </div>
       </div>
     </section>
+    <footer>
+      <div class="container-fluid" id="timerTones">
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-6 d-flex justify-content-center">
+            <div>
+              <form class="d-flex justify-content-center">
+                <label for="timerAudio" class="timerAudio"
+                  >Select ringtones</label
+                >
+                <input
+                  type="file"
+                  id="timerAudio"
+                  multiple
+                  style="display: none"
+                />
+              </form>
+              <audio
+                src=""
+                id="timerSound"
+                controls
+                style="display: none"
+              ></audio>
+              <div class="d-flex justify-content-center">
+                <button
+                  id="timerDismiss"
+                  onclick="timerDismiss()"
+                  style="display: none"
+                >
+                  Dismiss
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-3"></div>
+        </div>
+      </div>
+    </footer>
     <script src="index.js"></script>
   </body>
 </html>

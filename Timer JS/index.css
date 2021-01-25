@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
 div.switchs {
   background-color: #265a88;
   border: 2px 2px black;
@@ -36,9 +38,9 @@ div.buttons button {
   background-color: #4b6d62;
   color: white;
   box-shadow: 5px 5px 10px black;
-}
-div.buttons button:focus {
   outline: none;
+}
+div.buttons button:active {
   box-shadow: none;
   cursor: grab;
 }
@@ -46,4 +48,20 @@ div.buttons button:focus {
 section#timer,
 section#alarm {
   display: none;
+}
+
+label.timerAudio {
+  box-shadow: 5px 5px 10px gray;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  font-family: "Lobster", cursive;
+}
+
+button#timerDismiss {
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px gray;
+  padding: 1rem;
+  outline: none;
+  border: none;
 }

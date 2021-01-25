@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=fil, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <label for="myfile">Select files:</label>
+    <input type="file" id="myfile" name="myfile" multiple />
+
+    <audio src="" id="audio" controls></audio>
+    <script>
+      document.getElementById("myfile").addEventListener("change", (event) => {
+        console.log(event.target.files[0]);
+        document.getElementById("audio").src = URL.createObjectURL(
+          event.target.files[0]
+        );
+      });
+    </script>
+  </body>
+</html>

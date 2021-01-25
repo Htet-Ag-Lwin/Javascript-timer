@@ -1,8 +1,26 @@
+const timerStop = document.getElementById("timer-stop");
+const timerStart = document.getElementById("timer-start");
+const btnTimerDismiss = document.getElementById("timerDismiss");
+const btnTimerChooseTone = document.getElementsByClassName("timerAudio")[0];
+let timerTone;
+let hour;
+let minute;
+let second;
+let prevTimerHour;
+let prevTimerMinute;
+let prevTimerSecond;
+
+const getCurrentTime = () => {
+  hour = parseInt(getInputTimer("h").value);
+  minute = parseInt(getInputTimer("m").value);
+  second = parseInt(getInputTimer("s").value);
+};
+
 function setMode(id) {
   const btnTimer = document.getElementById("btnTimer");
   const btnAlarm = document.getElementById("btnAlarm");
   const timerRestart = document.getElementById("timerRestart");
-  const timerStartStop = document.getElementById("timer-start-stop");
+
   const alarmSnooze = document.getElementById("alarmSnooze");
   const alarmStartStop = document.getElementById("alarmStartStop");
   switch (id) {
@@ -12,7 +30,6 @@ function setMode(id) {
       setBtnActive(btnTimer);
       setBtnInactive(btnAlarm);
       timerRestart.innerHTML = "Restart";
-      timerStartStop.innerHTML = "Start";
 
       break;
 
@@ -85,13 +102,34 @@ function restartTimer() {
   hour.value = "00";
   minute.value = "00";
   second.value = "00";
-
   clearInterval(interval); // !important
+  timerStart.style.display = "initial";
+  timerStop.style.display = "none";
+  document.getElementById("timerSound").pause();
+  document.getElementById("timerSound").src = "";
+  timerTone = undefined;
+  btnTimerDismiss.style.display = "none";
+  btnTimerChooseTone.style.display = "initial";
 }
 
 var interval;
 function startTimer() {
-  interval = setInterval(countDown, 1);
+  getCurrentTime();
+  prevTimerHour = hour;
+  prevTimerMinute = minute;
+  prevTimerSecond = second;
+  if ((second > 0 || minute > 0 || hour > 0) && timerTone !== undefined) {
+    interval = setInterval(countDown, 1);
+    timerStart.style.display = "none";
+    timerStop.style.display = "initial";
+    btnTimerChooseTone.style.display = "none";
+  }
+}
+
+function stopTimer() {
+  clearInterval(interval);
+  timerStop.style.display = "none";
+  timerStart.style.display = "initial";
 }
 
 function getInputTimer(id) {
@@ -109,9 +147,7 @@ function countDown() {
   const elementHour = getInputTimer("h");
   const elementMinute = getInputTimer("m");
   const elementSecond = getInputTimer("s");
-  let hour = parseInt(getInputTimer("h").value);
-  let minute = parseInt(getInputTimer("m").value);
-  let second = parseInt(getInputTimer("s").value);
+  getCurrentTime();
 
   if (second > 0) {
     second -= 1;
@@ -122,10 +158,37 @@ function countDown() {
     hour -= 1;
     minute += 59;
   } else {
+    document.getElementById("timerSound").play();
+    btnTimerDismiss.style.display = "initial";
     clearInterval(interval);
+    timerStop.style.display = "none";
+    timerStart.style.display = "initial";
   }
 
-  elementSecond.value = second;
-  elementMinute.value = minute;
-  elementHour.value = hour;
+  elementSecond.value = second === 0 ? "00" : second;
+  elementMinute.value = minute === 0 ? "00" : minute;
+  elementHour.value = hour === 0 ? "00" : hour;
 }
+
+document.getElementById("timerAudio").addEventListener("change", (event) => {
+  if (event.target.files[0].type === "audio/mpeg") {
+    document.getElementById("timerSound").src = URL.createObjectURL(
+      event.target.files[0]
+    );
+    timerTone = event.target.files[0];
+  }
+});
+
+const timerDismiss = () => {
+  const elementHour = getInputTimer("h");
+  const elementMinute = getInputTimer("m");
+  const elementSecond = getInputTimer("s");
+  document.getElementById("timerSound").pause();
+  document.getElementById("timerSound").src = "";
+  timerTone = undefined;
+  btnTimerDismiss.style.display = "none";
+  btnTimerChooseTone.style.display = "initial";
+  elementSecond.value = prevTimerSecond === 0 ? "00" : prevTimerSecond;
+  elementMinute.value = prevTimerMinute === 0 ? "00" : prevTimerMinute;
+  elementHour.value = prevTimerHour === 0 ? "00" : prevTimerHour;
+};
